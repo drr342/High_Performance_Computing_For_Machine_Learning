@@ -1,0 +1,212 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Mar  2 12:04:48 2018
+
+@author: drr342
+"""
+
+from __future__ import print_function, division
+import pandas as pd
+import torch
+import torchvision.datasets as Datasets
+import torchvision.transforms as Transforms
+import torch.utils.data.sampler as Sampler
+from torch.utils.data import DataLoader
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+from torch.autograd import Variable
+from time import monotonic
+import math
+import sys
+
+RESIZE = 32
+BATCH_SIZE = 100
+INPUT_DIM = RESIZE * RESIZE * 3
+L1_DIM = 1024
+L2_DIM = 256
+OUT_DIM = 17
+LR = 0.01
+MOMENTUM = 0.9
+EPOCHS = 5
+GPU = False
+WORKERS = 1
+
+class MyImageFolder(Datasets.ImageFolder):
+	def __getitem__(self, index):
+		start = monotonic()
+		path, target = self.imgs[index]
+		img = self.loader(path)
+		target = self.target_transform(index)
+		end = monotonic()
+		io = end - start
+		start = monotonic()
+		img = self.transform(img)
+		end = monotonic()
+		preprocess = end - start
+		return img, target, io, preprocess
+
+class Model(nn.Module):
+	def __init__(self):
+		super(Model, self).__init__()
+		self.linear1 = nn.Linear(INPUT_DIM, L1_DIM)
+		self.linear2 = nn.Linear(L1_DIM, L2_DIM)
+		self.linear3 = nn.Linear(L2_DIM, OUT_DIM)
+
+	def forward(self, input):
+		x = input.view(-1, INPUT_DIM)
+		x = F.relu(self.linear1(x))
+		x = F.relu(self.linear2(x))
+		#x = nn.Softmax(self.linear3(x))
+		x = self.linear3(x)
+		return x
+
+class Lab1():
+	def __init__(self):
+		self.model = Model()
+		self.optimizer = optim.SGD(self.model.parameters(), lr = LR, momentum = MOMENTUM)
+		self.optimizer_name = 'SGD with Momentum'
+		self.epochs = EPOCHS
+		self.gpu = GPU
+		self.workers = WORKERS
+
+	def create_data_loaders(self):
+		#path = '/home/drr342/images/'
+		path = '/scratch/am9031/CSCI-GA.3033-023/kaggleamazon/'
+
+		df_train = pd.read_csv(path + 'train.csv')
+		df_test = pd.read_csv(path + 'test.csv')
+		labels = df_train[df_train.columns[1]].tolist() + \
+		   df_test[df_test.columns[1]].tolist()
+		labels = torch.LongTensor(labels)
+
+		resize = Transforms.Resize((RESIZE, RESIZE))
+		to_tensor = Transforms.ToTensor()
+		preprocess = Transforms.Compose([resize, to_tensor])
+		images = MyImageFolder(path,
+				transform = preprocess,
+				target_transform = lambda i: labels[i] if i < 39000 else labels[i - 19000])
+				#target_transform = lambda i: labels[i])
+
+		index_train = list(range(len(df_train)))
+		index_test = list(range(len(images) - len(df_test), len(images)))
+		train_sampler = Sampler.SubsetRandomSampler(index_train)
+		test_sampler = Sampler.SubsetRandomSampler(index_test)
+
+		self.train_data_loader = DataLoader(images,
+					batch_size = BATCH_SIZE,
+					shuffle = False,
+					sampler = train_sampler,
+					num_workers = self.workers)
+		self.test_data_loader = DataLoader(images,
+					batch_size = BATCH_SIZE,
+					shuffle = False,
+					sampler = test_sampler,
+					num_workers = self.workers)
+
+	def train(self):
+		acc_dl, acc_io, acc_pre = 0, 0, 0
+		start = monotonic()
+		for image, label, io, pre in self.train_data_loader:
+			end = monotonic()
+			acc_dl += (end - start)
+			acc_io += io.sum()
+			acc_pre += pre.sum()
+			if self.gpu:
+				image = image.cuda()
+				label = label.cuda()
+			image = Variable(image)
+			label = Variable(label)
+			self.optimizer.zero_grad()
+			criterion = nn.CrossEntropyLoss()
+			output = self.model(image)
+			loss = criterion(output, label)
+			loss.backward()
+			self.optimizer.step()
+			start = monotonic()
+		return acc_dl, acc_io, acc_pre
+
+	def test(self):
+		loss = 0
+		correct = 0
+		for image, label, io, pre in self.test_data_loader:
+			if self.gpu:
+				image = image.cuda()
+				label = label.cuda()
+			image = Variable(image, volatile = True)
+			label = Variable(label)
+			criterion = nn.CrossEntropyLoss()
+			output = self.model(image)
+			loss += criterion(output, label)
+			pred = output.data.max(1, keepdim = True)[1]
+			correct += pred.eq(label.data.view_as(pred)).cpu().sum()
+		loss /= len(self.test_data_loader.sampler.indices)
+		print('\nRESULTS:')
+		print('Average loss: {:.4f}'.format(loss.data[0]))
+		print('Accuracy: {}/{} ({:.2f}%)'.format(
+			correct, len(self.test_data_loader.sampler.indices),
+			100.0 * correct / len(self.test_data_loader.sampler.indices)))
+
+	def run(self):
+		print('===============================================\n')
+		print('                RUNNING MODEL\n')
+		print('===============================================')
+		print('PARAMETERS:')
+		print('Number of epochs: {}'.format(self.epochs))
+		print('Optimizer algorithm: {}'.format(self.optimizer_name))
+		print('Number of workers = {}'.format(self.workers))
+		print('Using GPU = {}\n'.format(self.gpu))
+		print('TRAINING:')
+
+		self.create_data_loaders()
+		self.model.train()
+		acc_dl, acc_io, acc_pre = 0, 0, 0
+		start = monotonic()
+		for epoch in range(self.epochs):
+			print('Epoch {} of {}...'.format(epoch + 1, self.epochs))
+			dl, io, pre = self.train()
+			acc_dl += dl
+			acc_io += io
+			acc_pre += pre
+		end = monotonic()
+		stats0 = 'Aggregate DataLoader I/O time: {:.4f} s\n'.format(acc_io)
+		stats1 = 'Aggregate DataLoader preprocessing time: {:.4f} s\n'.format(acc_pre)
+		stats2 = 'Aggregate data loading time during training: {:.4f} s\n'.format(acc_dl)
+		stats3 = 'Training time: {:.4f} s\n'.format(end - start)
+		stats5 = 'Average epoch time: {:.4f} s\n'.format((end - start) / self.epochs)
+		self.model.eval()
+		start = monotonic()
+		self.test()
+		end = monotonic()
+		stats4 = 'Inference time: {:.4f} s\n'.format(end - start)
+		print('\nSTATS:')
+		print(stats0, stats1, stats2, stats3, stats4, stats5, sep = '')
+
+	def select(self):
+		if not torch.cuda.is_available():
+			try:
+				self.workers = int(sys.argv[1])
+			except:
+				pass
+			self.run()
+		else:
+			self.workers = 5 #Optimal number of workers
+			self.epochs = 10
+			self.run()
+			self.gpu = True
+			self.model.cuda()
+			self.optimizer = optim.SGD(self.model.parameters(), lr = LR, momentum = MOMENTUM)
+			self.run()
+			self.optimizer = optim.SGD(self.model.parameters(), lr = LR, momentum = 0)
+			self.optimizer_name = 'SGD'
+			self.run()
+			self.optimizer = optim.Adam(self.model.parameters(), lr = LR)
+			self.optimizer_name = 'Adam'
+			self.run()
+
+def main():
+	lab1 = Lab1()
+	lab1.select()
+
+if __name__ == "__main__":
+	main()

@@ -1,0 +1,140 @@
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 10
+Optimizer algorithm: SGD with Momentum
+Number of workers = 5
+Using GPU = False
+
+TRAINING:
+Epoch 1 of 10...
+Epoch 2 of 10...
+Epoch 3 of 10...
+Epoch 4 of 10...
+Epoch 5 of 10...
+Epoch 6 of 10...
+Epoch 7 of 10...
+Epoch 8 of 10...
+Epoch 9 of 10...
+Epoch 10 of 10...
+
+RESULTS:
+Average loss: 0.0529
+Accuracy: 374/1479 (25.29%)
+
+STATS:
+Aggregate DataLoader I/O time: 1050.1019 s
+Aggregate DataLoader preprocessing time: 84.0291 s
+Aggregate data loading time during training: 144.1775 s
+Training time: 230.9671 s
+Inference time: 1.0674 s
+Average epoch time: 23.0967 s
+
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 10
+Optimizer algorithm: SGD with Momentum
+Number of workers = 5
+Using GPU = True
+
+TRAINING:
+Epoch 1 of 10...
+Epoch 2 of 10...
+Epoch 3 of 10...
+Epoch 4 of 10...
+Epoch 5 of 10...
+Epoch 6 of 10...
+Epoch 7 of 10...
+Epoch 8 of 10...
+Epoch 9 of 10...
+Epoch 10 of 10...
+
+RESULTS:
+Average loss: 0.0535
+Accuracy: 374/1479 (25.29%)
+
+STATS:
+Aggregate DataLoader I/O time: 391.6248 s
+Aggregate DataLoader preprocessing time: 71.6359 s
+Aggregate data loading time during training: 90.1590 s
+Training time: 95.7639 s
+Inference time: 0.9890 s
+Average epoch time: 9.5764 s
+
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 10
+Optimizer algorithm: SGD
+Number of workers = 5
+Using GPU = True
+
+TRAINING:
+Epoch 1 of 10...
+Epoch 2 of 10...
+Epoch 3 of 10...
+Epoch 4 of 10...
+Epoch 5 of 10...
+Epoch 6 of 10...
+Epoch 7 of 10...
+Epoch 8 of 10...
+Epoch 9 of 10...
+Epoch 10 of 10...
+
+RESULTS:
+Average loss: 0.0567
+Accuracy: 374/1479 (25.29%)
+
+STATS:
+Aggregate DataLoader I/O time: 390.1542 s
+Aggregate DataLoader preprocessing time: 71.4818 s
+Aggregate data loading time during training: 90.3505 s
+Training time: 95.4612 s
+Inference time: 0.9984 s
+Average epoch time: 9.5461 s
+
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 10
+Optimizer algorithm: Adam
+Number of workers = 5
+Using GPU = True
+
+TRAINING:
+Epoch 1 of 10...
+Epoch 2 of 10...
+Epoch 3 of 10...
+Epoch 4 of 10...
+Epoch 5 of 10...
+Epoch 6 of 10...
+Epoch 7 of 10...
+Epoch 8 of 10...
+Epoch 9 of 10...
+Epoch 10 of 10...
+
+RESULTS:
+Average loss: 0.0805
+Accuracy: 374/1479 (25.29%)
+
+STATS:
+Aggregate DataLoader I/O time: 389.4297 s
+Aggregate DataLoader preprocessing time: 71.4708 s
+Aggregate data loading time during training: 88.9712 s
+Training time: 95.3837 s
+Inference time: 0.9319 s
+Average epoch time: 9.5384 s
+
