@@ -1,0 +1,270 @@
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 5
+Optimizer algorithm: SGD with Momentum
+Number of workers = 0
+Using GPU = False
+
+TRAINING:
+Epoch 1 of 5...
+Epoch 2 of 5...
+Epoch 3 of 5...
+Epoch 4 of 5...
+Epoch 5 of 5...
+
+RESULTS:
+Average loss: 0.0456
+Accuracy: 374/1479 (25.29%)
+
+STATS:
+Aggregate DataLoader I/O time: 1444.4307 s
+Aggregate DataLoader preprocessing time: 65.7133 s
+Aggregate data loading time during training: 1511.5626 s
+Training time: 1548.5260 s
+Inference time: 14.3465 s
+Average epoch time: 309.7052 s
+
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 5
+Optimizer algorithm: SGD with Momentum
+Number of workers = 1
+Using GPU = False
+
+TRAINING:
+Epoch 1 of 5...
+Epoch 2 of 5...
+Epoch 3 of 5...
+Epoch 4 of 5...
+Epoch 5 of 5...
+
+RESULTS:
+Average loss: 0.0517
+Accuracy: 374/1479 (25.29%)
+
+STATS:
+Aggregate DataLoader I/O time: 1405.8912 s
+Aggregate DataLoader preprocessing time: 66.5703 s
+Aggregate data loading time during training: 1435.5756 s
+Training time: 1475.6217 s
+Inference time: 40.5569 s
+Average epoch time: 295.1243 s
+
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 5
+Optimizer algorithm: SGD with Momentum
+Number of workers = 2
+Using GPU = False
+
+TRAINING:
+Epoch 1 of 5...
+Epoch 2 of 5...
+Epoch 3 of 5...
+Epoch 4 of 5...
+Epoch 5 of 5...
+
+RESULTS:
+Average loss: 0.0449
+Accuracy: 374/1479 (25.29%)
+
+STATS:
+Aggregate DataLoader I/O time: 1765.3030 s
+Aggregate DataLoader preprocessing time: 63.0235 s
+Aggregate data loading time during training: 877.6195 s
+Training time: 919.0534 s
+Inference time: 13.6886 s
+Average epoch time: 183.8107 s
+
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 5
+Optimizer algorithm: SGD with Momentum
+Number of workers = 3
+Using GPU = False
+
+TRAINING:
+Epoch 1 of 5...
+Epoch 2 of 5...
+Epoch 3 of 5...
+Epoch 4 of 5...
+Epoch 5 of 5...
+
+RESULTS:
+Average loss: 0.0568
+Accuracy: 365/1479 (24.68%)
+
+STATS:
+Aggregate DataLoader I/O time: 1410.9509 s
+Aggregate DataLoader preprocessing time: 58.0098 s
+Aggregate data loading time during training: 453.0022 s
+Training time: 495.7251 s
+Inference time: 5.2695 s
+Average epoch time: 99.1450 s
+
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 5
+Optimizer algorithm: SGD with Momentum
+Number of workers = 4
+Using GPU = False
+
+TRAINING:
+Epoch 1 of 5...
+Epoch 2 of 5...
+Epoch 3 of 5...
+Epoch 4 of 5...
+Epoch 5 of 5...
+
+RESULTS:
+Average loss: 0.0461
+Accuracy: 374/1479 (25.29%)
+
+STATS:
+Aggregate DataLoader I/O time: 1318.1544 s
+Aggregate DataLoader preprocessing time: 57.4370 s
+Aggregate data loading time during training: 306.5411 s
+Training time: 349.3969 s
+Inference time: 2.6319 s
+Average epoch time: 69.8794 s
+
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 5
+Optimizer algorithm: SGD with Momentum
+Number of workers = 5
+Using GPU = False
+
+TRAINING:
+Epoch 1 of 5...
+Epoch 2 of 5...
+Epoch 3 of 5...
+Epoch 4 of 5...
+Epoch 5 of 5...
+
+RESULTS:
+Average loss: 0.0512
+Accuracy: 374/1479 (25.29%)
+
+STATS:
+Aggregate DataLoader I/O time: 1333.8446 s
+Aggregate DataLoader preprocessing time: 57.2826 s
+Aggregate data loading time during training: 238.0472 s
+Training time: 283.6231 s
+Inference time: 6.3973 s
+Average epoch time: 56.7246 s
+
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 5
+Optimizer algorithm: SGD with Momentum
+Number of workers = 6
+Using GPU = False
+
+TRAINING:
+Epoch 1 of 5...
+Epoch 2 of 5...
+Epoch 3 of 5...
+Epoch 4 of 5...
+Epoch 5 of 5...
+
+RESULTS:
+Average loss: 0.0579
+Accuracy: 371/1479 (25.08%)
+
+STATS:
+Aggregate DataLoader I/O time: 1693.8280 s
+Aggregate DataLoader preprocessing time: 57.1081 s
+Aggregate data loading time during training: 250.9679 s
+Training time: 299.6849 s
+Inference time: 7.2014 s
+Average epoch time: 59.9370 s
+
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 5
+Optimizer algorithm: SGD with Momentum
+Number of workers = 7
+Using GPU = False
+
+TRAINING:
+Epoch 1 of 5...
+Epoch 2 of 5...
+Epoch 3 of 5...
+Epoch 4 of 5...
+Epoch 5 of 5...
+
+RESULTS:
+Average loss: 0.0499
+Accuracy: 374/1479 (25.29%)
+
+STATS:
+Aggregate DataLoader I/O time: 2038.5829 s
+Aggregate DataLoader preprocessing time: 56.8597 s
+Aggregate data loading time during training: 263.3211 s
+Training time: 309.0320 s
+Inference time: 7.0375 s
+Average epoch time: 61.8064 s
+
+===============================================
+
+                RUNNING MODEL
+
+===============================================
+PARAMETERS:
+Number of epochs: 5
+Optimizer algorithm: SGD with Momentum
+Number of workers = 8
+Using GPU = False
+
+TRAINING:
+Epoch 1 of 5...
+Epoch 2 of 5...
+Epoch 3 of 5...
+Epoch 4 of 5...
+Epoch 5 of 5...
+
+RESULTS:
+Average loss: 0.0454
+Accuracy: 374/1479 (25.29%)
+
+STATS:
+Aggregate DataLoader I/O time: 2199.3447 s
+Aggregate DataLoader preprocessing time: 57.6475 s
+Aggregate data loading time during training: 240.9062 s
+Training time: 291.9135 s
+Inference time: 4.6279 s
+Average epoch time: 58.3827 s
+
